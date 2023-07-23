@@ -44,9 +44,13 @@ class TextAnalyzer(
     private val imageCropPercentages: MutableLiveData<Pair<Int, Int>>
 ) : ImageAnalysis.Analyzer {
 
-    // TODO: Instantiate TextRecognition detector
-
-    // TODO: Add lifecycle observer to properly close ML Kit detectors
+    //Instantiate TextRecognition detector
+    private val detector = TextRecognition.getClient()
+    
+    //Add lifecycle observer to properly close ML Kit detectors
+    init {
+        lifecycle.addObserver(detector)
+    }
 
     @androidx.camera.core.ExperimentalGetImage
     override fun analyze(imageProxy: ImageProxy) {
